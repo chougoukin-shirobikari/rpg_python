@@ -1,4 +1,5 @@
 from enum import Enum
+from process import Process
 
 class Map:
 
@@ -34,11 +35,67 @@ class Map:
                 map = map + MapItem(string).map_item
             print(map)
     
-    def move(self, key):
-        if key == 's':
-            self.map_lists[self.now_h][self.now_w] = MapItem.EMPTY.value
-            self.now_h = self.now_h + 1
-            self.map_lists[self.now_h][self.now_w] = MapItem.PLAYER.value
+    def move(self, input_key):
+        next_height = self.now_h
+        next_width = self.now_w
+
+        if input_key in Process.DOWN:
+            next_height += 1
+        
+        elif input_key in Process.LEFT:
+            next_width -= 1
+        
+        elif input_key in Process.RIGHT:
+            next_width += 1
+        
+        elif input_key in Process.UP:
+            next_height -= 1
+        
+        self.change_field(next_height, next_width)
+        self.counter += 1
+    
+    def change_field(self, height, width):
+        if self.map_lists[height][width] == MapItem.GOAL.value:
+            self.field = MapItem.GOAL.value
+        
+        elif self.map_lists[height][width] == MapItem.EMPTY.value:
+            self._change_field(height, width)
+            self.field = MapItem.EMPTY.value
+        
+        elif self.map_lists[height][width] == MapItem.WEAPON.value:
+            self._change_field(height, width)
+            self.field = MapItem.WEAPON.value
+        
+        elif self.map_lists[height][width] == MapItem.SIELD.value:
+            self._change_field(height, width)
+            self.field = MapItem.SIELD.value
+        
+        elif self.map_lists[height][width] == MapItem.HERBS.value:
+            self._change_field(height, width)
+            self.field = MapItem.HERBS.value
+        
+        elif self.map_lists[height][width] == MapItem.BLOCK.value:
+            self.field = MapItem.BLOCK.value
+    
+    def _change_field(self, height, width):
+        
+        self.map_lists[self.now_h][self.now_w] = MapItem.EMPTY.value
+
+        if height > self.now_h:
+            self.map_lists[self.now_h + 1][self.now_w] = MapItem.PLAYER.value
+            self.now_h += 1
+        
+        elif height < self.now_h:
+            self.map_lists[self.now_h - 1][self.now_w] = MapItem.PLAYER.value
+            self.now_h -= 1
+        
+        elif width > self.now_w:
+            self.map_lists[self.now_h][self.now_w + 1] = MapItem.PLAYER.value
+            self.now_w += 1
+        
+        elif width < self.now_w:
+            self.map_lists[self.now_h][self.now_w - 1] = MapItem.PLAYER.value
+            self.now_w -= 1
 
 class MapItem(str, Enum):
     def __new__(cls, value, map_item, title, description):
