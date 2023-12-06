@@ -19,14 +19,70 @@ class Map:
         ['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'],
     ]
 
+    @property
+    def counter(self):
+        return self._counter
+    
+    @counter.setter
+    def counter(self, value):
+        self._counter = value
+    
+    @property
+    def now_h(self):
+        return self._now_h
+    
+    @now_h.setter
+    def now_h(self, value):
+        self._now_h = value
+    
+    @property
+    def now_w(self):
+        return self._now_w
+    
+    @now_w.setter
+    def now_w(self, value):
+        self._now_w = value
+    
+    @property
+    def goal_flg(self):
+        return self._goal_flg
+    
+    @goal_flg.setter
+    def goal_flg(self, value):
+        self._goal_flg = value
+    
+    @property
+    def game_over_flg(self):
+        return self._game_over_flg
+    
+    @game_over_flg.setter
+    def game_over_flg(self, value):
+        self._game_over_flg = value
+    
+    @property
+    def show_item_flg(self):
+        return self._show_item_flg
+    
+    @show_item_flg.setter
+    def show_item_flg(self, value):
+        self._show_item_flg = value
+    
+    @property
+    def field(self):
+        return self._field
+    
+    @field.setter
+    def field(self, value):
+        self._field = value
+
     def __init__(self):
-        self.now_h = 1
-        self.now_w = 1
-        self.counter = 0
-        self.goal_flg= False
-        self.game_over_flg = False
-        self.show_item_flg = False
-        self.field = ''
+        self._now_h = 1
+        self._now_w = 1
+        self._counter = 0
+        self._goal_flg= False
+        self._game_over_flg = False
+        self._show_item_flg = False
+        self._field = ''
 
     def show(self):
         for array in self.map_lists:
